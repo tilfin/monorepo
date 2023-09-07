@@ -1,0 +1,18 @@
+{
+  "name": "monoprepo",
+  "private": true,
+  "scripts": {
+  },
+  "workspaces": {
+    "packages": [
+      "lambda1",
+      "lambda2"
+    ],
+    "nohoist": [
+      "**/ts-jest/**",
+      "**/ts-jest",
+      "**/jest-date-mock/**",
+      "**/jest-date-mock"
+    ]
+  }
+}

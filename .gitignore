@@ -1,0 +1,36 @@
+node_modules
+build
+coverage
+dist
+tsconfig.tsbuildinfo
+*.log
+*.zip
+*-console/cons/
+server/public/cons/
+!server/public/cons/.keep
+server/src/proto/
+!server/src/proto/.keep
+cdk.out/
+.history/
+.idea/
+.vscode/launch.json
+.DS_Store
+
+# Local .terraform directories
+**/.terraform/*
+
+# Crash log files
+crash.log
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+*.tgz
