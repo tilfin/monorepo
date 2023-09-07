@@ -9,11 +9,6 @@ on:
 jobs:
   buildStep1:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    env:
-      AWS_ACCESS_KEY_ID: dummy
-      AWS_SECRET_ACCESS_KEY: dummy
-      NODE_OPTIONS: --max_old_space_size=4000
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 18
@@ -21,7 +16,16 @@ jobs:
         with:
           node-version: 18.12.1
           cache: 'yarn'
-      - run: yarn install --frozen-lockfile
+      - uses: actions/cache@v3
+        id: node_modules_cache_id
+        env:
+          cache-name: node-modules-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('yarn.lock') }}
+      - run: echo '${{ toJSON(steps.node_modules_cache_id.outputs) }}'
+      - if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+        run: yarn install --frozen-lockfile
       - run: echo "VER_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - run: echo "GITHUB_REF) $GITHUB_REF"
       - run: echo "github.ref) ${{ github.ref }}"
